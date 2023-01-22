@@ -1,0 +1,15 @@
+.contact-list {
+  font-size: smaller;
+  width: 320px;
+  padding: 0;
+}
+
+.contact {
+  display: flex;
+  padding: 5px 0;
+  justify-content: space-between;
+}
+
+.button {
+  width: 100px;
+}
