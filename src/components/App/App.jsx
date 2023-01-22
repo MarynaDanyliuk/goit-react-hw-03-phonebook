@@ -1,6 +1,5 @@
 import React from 'react';
 import css from './App.module.css';
-// import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 
 import { ContactsList } from 'components/ContactsList/ContactsList';
@@ -59,6 +58,20 @@ export class App extends React.Component {
     }));
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem(`contacts`);
+    const parseContacts = JSON.parse(contacts);
+    console.log(parseContacts);
+
+    this.setState({ contacts: parseContacts });
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
     return (
       <div
@@ -75,7 +88,6 @@ export class App extends React.Component {
         <Form onSubmit={this.formSubmitHandler} />
         <h2 className={css.title}>Contacts</h2>
         <Filter filter={this.state.filter} handleFilter={this.handleChange} />
-        {/* <ContactsList contacts={this.state.contacts} /> */}
         <ContactsList
           contacts={this.handleNameFilter()}
           handleDelete={this.handleDelete}
@@ -84,7 +96,3 @@ export class App extends React.Component {
     );
   }
 }
-
-// App.propTypes = {
-//   title: PropTypes.string,
-// };
